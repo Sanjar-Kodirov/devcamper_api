@@ -1,10 +1,14 @@
 const express = require("express");
 const app = express();
+// route files
+const bootcamps = require("./routes/bootcamps");
+
+// load env vars
 const port = process.env.PORT || 3000;
 require("dotenv").config();
-app.get("/", (req, res) => {
-  res.send(process.env.SECRET_KEY);
-});
+
+// Mount routers
+app.use("/api/v1/bootcamps", bootcamps);
 app.listen(port, () => {
   console.log(`Server is running on port ${port}.`);
 });
