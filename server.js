@@ -4,7 +4,7 @@ const app = express();
 const bootcamps = require("./routes/bootcamps");
 
 // load env vars
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 require("dotenv").config();
 
 // Mount routers
