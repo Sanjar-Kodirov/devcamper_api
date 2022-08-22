@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const colors = require("colors");
+const errorHandler = require("./middleware/error");
 const connectDB = require("./config/db");
 const app = express();
 // body parser
@@ -20,6 +21,8 @@ const bootcamps = require("./routes/bootcamps");
 
 // Mount routers
 app.use("/api/v1/bootcamps", bootcamps);
+
+app.use(errorHandler);
 const server = app.listen(port, () => {
   console.log(`Server is running on port ${port}.`.white.bgGreen.bold);
 });
