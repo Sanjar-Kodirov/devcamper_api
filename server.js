@@ -3,7 +3,8 @@ const morgan = require("morgan");
 const colors = require("colors");
 const connectDB = require("./config/db");
 const app = express();
-
+// body parser
+app.use(express.json());
 // load env vars
 require("dotenv").config({ path: "./config/config.env" });
 const port = process.env.PORT || 4000;
