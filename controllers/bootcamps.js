@@ -2,7 +2,7 @@ const Bootcamp = require("../models/Bootcamp"); // @desc      Get all bootcamps
 // @route     GET /api/v1/bootcamps
 
 // @access    Public
-exports.getBootcamps = async (req, res) => {
+exports.getBootcamps = async (req, res, next) => {
   try {
     const bootcamps = await Bootcamp.find();
 
@@ -17,13 +17,14 @@ exports.getBootcamps = async (req, res) => {
 // @desc      Get single bootcamp
 // @route     GET /api/v1/bootcamps/:id
 // @access    Public
-exports.getBootcamp = async (req, res) => {
-  console.log(id);
+exports.getBootcamp = async (req, res, next) => {
+  // console.log(id);
   try {
     const bootcamps = await Bootcamp.findById(req.params.id);
     res.status(200).json({ success: true, data: bootcamps });
   } catch (err) {
-    res.status(400).json({ success: false, message: err });
+    // res.status(400).json({ success: false, message: err });
+    next(err);
   }
 };
 
