@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const slugify = require("slugify");
 const BootcampSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -101,5 +102,14 @@ const BootcampSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
+
+// crate bootcamp slug from the name
+BootcampSchema.pre("save", function (next) {
+  this.slug = slugify(this.name, {
+    lower: true,
+  });
+  next();
+});
+// https://www.npmjs.com/package/slugify
 
 module.exports = mongoose.model("Bootcamp", BootcampSchema);

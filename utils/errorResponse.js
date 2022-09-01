@@ -9,6 +9,8 @@ class ErrorResponse extends Error {
 
 module.exports = ErrorResponse;
 
+
+
 // function ErrorResponse(message, statusCode) {
 //   this.message = message;
 //   this.statusCode = statusCode || "Server error";
