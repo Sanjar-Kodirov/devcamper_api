@@ -1,5 +1,6 @@
 const ErrorResponse = require("../utils/errorResponse");
 // const asyncHandler = require("../middleware/async");
+const geocoder = require("../utils/geocoder");
 const asyncHandler = require("express-async-handler");
 
 const Bootcamp = require("../models/Bootcamp");
