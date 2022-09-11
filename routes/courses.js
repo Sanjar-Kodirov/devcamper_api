@@ -12,4 +12,6 @@ const {
 // const Course = require("../models/Course");
 
 router.route("/").get(getCourses);
+router.route("/").post(addCourse);
+router.route("/:id").get(getCourse);
 module.exports = router;

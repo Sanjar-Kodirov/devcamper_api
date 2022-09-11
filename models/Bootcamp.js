@@ -103,6 +103,10 @@ const BootcampSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+    // courses: {
+    //   type: mongoose.Schema.ObjectId,
+    //   ref: "Course",
+    // },
   },
   {
     toJSON: { virtuals: true },
@@ -110,7 +114,7 @@ const BootcampSchema = new mongoose.Schema(
   }
 );
 
-// crate bootcamp slug from the name
+// create bootcamp slug from the name
 BootcampSchema.pre("save", function (next) {
   this.slug = slugify(this.name, {
     lower: true,
