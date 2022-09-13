@@ -1,5 +1,5 @@
 // const crypto = require("crypto");
-// const ErrorResponse = require("../utils/errorResponse");
+const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("express-async-handler");
 // const sendEmail = require("../utils/sendEmail");
 const User = require("../models/User");
@@ -38,8 +38,22 @@ exports.login = asyncHandler(async (req, res, next) => {
 
   // Check for user
   const user = await User.findOne({ email }).select("+password");
+  if (!user) {
+    return next(new ErrorResponse("Invalid credentials", 401));
+  }
+
+  // check if password is matches
+  const isMatch = await user.matchPassword(password);
+  if (!isMatch) {
+    return next(new ErrorResponse("Invalid credentials", 401));
+  }
+
+  // create jwt token
+  const token = user.getSignedJwtToken();
 
   if (!user) {
     return next(new ErrorResponse("Invalid credentials", 401));
   }
+
+  res.status(200).json({ success: true, token, data: user });
 });
