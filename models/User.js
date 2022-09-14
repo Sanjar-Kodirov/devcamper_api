@@ -41,16 +41,16 @@ UserSchema.pre("save", async function (req, res) {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-// Sign user JWT and return
-UserSchema.methods.getSignedJwtToken = function () {
-  return jwt.sign({ id: this.id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE,
-  });
+// Match user entered password to hashed password in database
+UserSchema.methods.matchPassword = async function (enteredpassword) {
+  return await bcrypt.compare(enteredpassword, this.password);
 };
 
-// Match user entered password to hasged password in database
-UserSchema.methods.matchPassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
+// Sign JWT and return
+UserSchema.methods.getSignedJwtToken = function () {
+  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRE,
+  });
 };
 
 module.exports = mongoose.model("User", UserSchema);

@@ -2,6 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const colors = require("colors");
 const errorHandler = require("./middleware/error");
+const cookieParser = require("cookie-parser");
 const connectDB = require("./config/db");
 const app = express();
 
@@ -18,6 +19,9 @@ const auth = require("./routes/auth");
 
 // body parser
 app.use(express.json());
+
+// Cookie parser
+capp.use(cookieParser());
 
 // Dev logging middleware
 if (process.env.NODE_ENV === "development") {
