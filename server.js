@@ -21,7 +21,7 @@ const auth = require("./routes/auth");
 app.use(express.json());
 
 // Cookie parser
-capp.use(cookieParser());
+app.use(cookieParser());
 
 // Dev logging middleware
 if (process.env.NODE_ENV === "development") {
