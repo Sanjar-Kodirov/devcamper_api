@@ -12,7 +12,10 @@ const { protect, authorize } = require("../middleware/auth");
 
 // const Course = require("../models/Course");
 
-router.route("/").get(getCourses).post(protect, addCourse);
+router
+  .route("/")
+  .get(getCourses)
+  .post(protect, authorize("publisher", "admin"), addCourse);
 router
   .route("/:id")
   .get(getCourse)
