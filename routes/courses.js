@@ -10,11 +10,15 @@ const {
 } = require("../controllers/courses");
 const { protect, authorize } = require("../middleware/auth");
 
-// const Course = require("../models/Course");
+const advancedResults = require("../middleware/advancedResults");
+const Course = require("../models/Course");
 
 router
   .route("/")
-  .get(getCourses)
+  .get(
+    advancedResults(Course, { path: "bootcamp", populate: "name description" }),
+    getCourses
+  )
   .post(protect, authorize("publisher", "admin"), addCourse);
 router
   .route("/:id")
