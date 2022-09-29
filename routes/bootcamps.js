@@ -6,6 +6,7 @@ const {
   updateBootcamp,
   deleteBootcamp,
   getBootcampsInRadius,
+  bootcampPhotoUpload,
 } = require("../controllers/bootcamps");
 
 // othe resource router
@@ -17,6 +18,10 @@ const { protect, authorize } = require("../middleware/auth");
 
 // re route into other routes
 router.use("/:bootcampId/courses", courseRouter);
+// router for file upload
+router
+  .route("/:id/photo")
+  .put(protect, authorize("publisher", "admin"), bootcampPhotoUpload);
 
 router.route("/radius/:zipcode/:distance").get(getBootcampsInRadius);
 router
